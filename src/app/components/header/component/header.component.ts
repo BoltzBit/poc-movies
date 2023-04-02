@@ -7,12 +7,12 @@ import {Router} from "@angular/router";
     styleUrls: ['header.component.scss']
 })
 export class HeaderComponent implements OnInit{
-    constructor(private router: Router){ }
+    constructor(private _router: Router){ }
 
     public ngOnInit(): void{
     }
 
     public goToHome(): void{
-        this.router.navigate(['home']).then();
+        this._router.navigate(['home']).then();
     }
 }

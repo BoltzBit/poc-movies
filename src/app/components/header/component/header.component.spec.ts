@@ -1,5 +1,5 @@
 import { HeaderComponent } from "./header.component";
-import {ComponentFixture, TestBed} from "@angular/core/testing";
+import {ComponentFixture, fakeAsync, TestBed} from "@angular/core/testing";
 import {HeaderModule} from "../header.module";
 import {Router, Routes} from "@angular/router";
 import {AppComponent} from "../../../app.component";
@@ -31,12 +31,14 @@ describe(HeaderComponent.name, () => {
         expect(component).toBeTruthy();
     });
 
-    it(`${HeaderComponent.prototype.goToHome.name} Should return to home when clicked`, () => {
-        fixture.detectChanges();
-        router.initialNavigation();
+    //ler mais sobre testes de router navigation
+    it(`${HeaderComponent.prototype.goToHome.name} Should return to home when clicked`, fakeAsync(() => {
+        const spy = spyOn(router, 'navigate')
+            .and
+            .callFake(() => new Promise((resolve => resolve)));
 
         component.goToHome();
 
-        expect(router.navigate).toHaveBeenCalledWith(['/home']);
-    });
+        expect(spy.calls.first().args[0]).toContain('home');
+    }));
 });
